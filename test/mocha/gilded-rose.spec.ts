@@ -98,6 +98,18 @@ describe('Gilded Rose', () => {
     expect(items[0].sellIn).to.equal(-5)
   });
 
+  it('Conjured Mana Cake quality decreases by 2 each day', () => {
+    const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 10, 30)])
+    const items = gildedRose.updateQuality()
+    expect(items[0].quality).to.equal(28)
+  }); 
+
+  it('Conjured Mana Cake quality decreases by 4 each day after sellIn <0', () => {
+    const gildedRose = new GildedRose([new Item('Conjured Mana Cake', -1, 30)])
+    const items = gildedRose.updateQuality()
+    expect(items[0].quality).to.equal(26)
+  }); 
+
 });
 
 /*              if (this.items[i].sellIn < 0) {
