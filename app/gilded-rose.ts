@@ -20,8 +20,6 @@ export class GildedRose {
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       const itemName = this.items[i].name;
-   //   let itemQuality = this.items[i].quality;
-   //   let itemSellin = this.items[i].sellIn;
 
       const inBoundQuality = (itemQuality) => {
         if (itemQuality>0 && itemQuality <50)
@@ -59,12 +57,13 @@ export class GildedRose {
         case 'Sulfuras, Hand of Ragnaros':
           break;
         default:
-          if (this.items[i].quality > 0)
-            this.items[i].quality--;
-          if (this.items[i].sellIn > 0)
-            this.items[i].sellIn--
-          if (this.items[i].quality >0 && this.items[i].sellIn < 0)
-            this.items[i].quality--;
+          if (inBoundQuality(this.items[i].quality)) {
+            if (this.items[i].sellIn > 0) {
+              this.items[i].quality--;
+              this.items[i].sellIn--;
+            }
+            else this.items[i].quality-=2;
+          }
           break;
       }
 /*
