@@ -3,7 +3,7 @@ export class Item {
   sellIn: number;
   quality: number;
 
-  constructor(name, sellIn, quality) {
+  constructor(name: string, sellIn: number, quality: number) {
     this.name = name;
     this.sellIn = sellIn;
     this.quality = quality;
@@ -17,39 +17,36 @@ export class GildedRose {
     this.items = items;
   }
 
-  isQualityInRange (itemQuality)  {
-    if (itemQuality > 0 && itemQuality < 50)
-      return true;
-    else
-      return false;
+  isQualityInRange (itemQuality: number)  {
+    return itemQuality>0 && itemQuality < 50 
   }
 
-  updateItemSellIn(item) {
+  updateItemSellIn(item: Item) {
     item.sellIn--;
     return item;
   }
 
-  updateDefaultItemQuality(item){
+  updateDefaultItemQuality(item: Item){
     item.sellIn > 0 ? item.quality-- : item.quality-=2;
     return item
   }
 
-  updateAgedQuality(item) {
+  updateAgedQuality(item: Item) {
     item.sellIn > 0 ? item.quality++ : item.quality+=2;
     return item
   }
   
-  updateConjuredManaCake(item){
+  updateConjuredManaCake(item: Item){
     item.sellIn > 0 ? item.quality -= 2 : item.quality-=4;
     return item;
   }
 
-  getBackstageQualityChange(sellIn, min, max) {
+  getBackstageQualityChange(sellIn : number, min : number, max : number) {
     return sellIn >= min && sellIn <= max;
   }
 
-  updateBackstageQuality(item) {
-    if(this.getBackstageQualityChange(item.sellIn, -Infinity, 0)) item.quality=0;
+  updateBackstageQuality(item : Item) {
+    if(this.getBackstageQualityChange(item.sellIn, -Infinity, -1)) item.quality=0;
     if(this.getBackstageQualityChange(item.sellIn, 0, 5)) item.quality+=3;
     if(this.getBackstageQualityChange(item.sellIn, 6, 10)) item.quality+=2;
     if(this.getBackstageQualityChange(item.sellIn, 11, Infinity)) item.quality++;
@@ -58,7 +55,7 @@ export class GildedRose {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      const itemName = this.items[i].name;
+      const itemName : string = this.items[i].name;
     
       if (this.isQualityInRange(this.items[i].quality))
       {switch (itemName) {
